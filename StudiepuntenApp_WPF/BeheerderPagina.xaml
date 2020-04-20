@@ -1,0 +1,19 @@
+﻿<Window x:Class="StudiepuntenApp_WPF.BeheerderPagina"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudiepuntenApp_WPF"
+        mc:Ignorable="d"
+        Title="BeheerderPagina" Height="420" Width="570">
+    <Window.Background>
+        <ImageBrush ImageSource="images/b5.jpg"/>
+    </Window.Background>
+    <Grid>
+        <ListBox x:Name="lbxStudierichting" HorizontalAlignment="Left" Height="218" Margin="23,10,0,0" VerticalAlignment="Top" Width="232"/>
+        <ListBox x:Name="lbxVak" HorizontalAlignment="Left" Height="337" Margin="319,10,0,0" VerticalAlignment="Top" Width="218"/>
+        <Button x:Name="btnVerwijderVak" Content="Verwijder vak" HorizontalAlignment="Left" Margin="319,352,0,0" VerticalAlignment="Top" Width="218" Click="BtnVerwijderVak_Click"/>
+        <Button x:Name="btnVerwijderStudierichting" Content="Verwijder studierichting" HorizontalAlignment="Left" Margin="23,233,0,0" VerticalAlignment="Top" Width="232" Click="BtnVerwijderStudierichting_Click"/>
+        <Button x:Name="btnLogOut" Content="Log uit" HorizontalAlignment="Left" Margin="23,288,0,0" VerticalAlignment="Top" Width="232" Click="BtnLogOut_Click" Height="84" Background="#FF5FD129"/>
+    </Grid>
+</Window>

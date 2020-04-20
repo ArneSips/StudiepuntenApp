@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiepuntenApp_business", "StudiepuntenApp_business\StudiepuntenApp_business.csproj", "{B7514741-3F0D-4CBD-B9D1-C9A8CD133DAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiepuntenApp_WPF", "StudiepuntenApp_WPF\StudiepuntenApp_WPF.csproj", "{2987E37C-B1B8-4619-817B-9BA760C339C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7514741-3F0D-4CBD-B9D1-C9A8CD133DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7514741-3F0D-4CBD-B9D1-C9A8CD133DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7514741-3F0D-4CBD-B9D1-C9A8CD133DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7514741-3F0D-4CBD-B9D1-C9A8CD133DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2987E37C-B1B8-4619-817B-9BA760C339C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2987E37C-B1B8-4619-817B-9BA760C339C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2987E37C-B1B8-4619-817B-9BA760C339C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2987E37C-B1B8-4619-817B-9BA760C339C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50EB3EC0-09F4-4195-803F-E9F4A4936838}
+	EndGlobalSection
+EndGlobal
