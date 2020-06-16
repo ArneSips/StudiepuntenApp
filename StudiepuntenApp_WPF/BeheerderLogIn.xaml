@@ -5,16 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudiepuntenApp_WPF"
         mc:Ignorable="d"
-         Title="BeheerderLogIn" Height="190" Width="300">
+         Title="BeheerderLogIn" Height="600" Width="800">
     <Window.Background>
         <ImageBrush ImageSource="images/b4.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="BtnBevestigInLoggenBeheerder" Content="Log in" HorizontalAlignment="Left" Margin="135,88,0,0" VerticalAlignment="Top" Width="120" Click="BtnBevestigInLoggenBeheerder_Click"/>
-        <TextBox x:Name="txtNaamInLoggen" HorizontalAlignment="Left" Height="23" Margin="135,32,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtWachtwoordInLoggen" HorizontalAlignment="Left" Height="23" Margin="135,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Naam:" HorizontalAlignment="Left" Margin="39,32,0,0" VerticalAlignment="Top" Background="#FFF5902B" Width="85" Height="23" FontWeight="Bold"/>
-        <Label Content="Wachtwoord:" HorizontalAlignment="Left" Margin="39,60,0,0" VerticalAlignment="Top" Background="#FFF5902B" Height="23" FontWeight="Bold"/>
-        <Button x:Name="btnTerug" Content="Terug naar bezoeker" HorizontalAlignment="Left" Margin="135,113,0,0" VerticalAlignment="Top" Width="120" Click="BtnTerug_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="1" Content="Naam:"  Background="#FFF5902B" FontWeight="Bold" FontSize="24"/>
+        <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtNaamInLoggen"  TextWrapping="Wrap"  Height="50" Text="" FontSize="24" />
+        <Label Grid.Column="1" Grid.Row="3" Content="Wachtwoord:"  Background="#FFF5902B"  FontWeight="Bold" FontSize="24"/>
+        <PasswordBox Grid.Column="3" Grid.Row="3" x:Name="txtWachtwoordInLoggen" FontSize="24"  />
+        <Button Grid.Column="3" Grid.Row="5"  x:Name="BtnBevestigInLoggenBeheerder" Content="Log in" Height="50"  Click="BtnBevestigInLoggenBeheerder_Click" FontSize="24"/>
+        <Button Grid.Column="3" Grid.Row="7" x:Name="btnTerug" Content="Terug naar bezoeker" Height="50"  Click="BtnTerug_Click" FontSize="24"/>
     </Grid>
 </Window>

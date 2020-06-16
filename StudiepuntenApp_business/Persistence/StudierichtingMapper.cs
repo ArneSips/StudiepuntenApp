@@ -31,7 +31,7 @@ namespace StudiepuntenApp_business.Persistence
             while (dataReader.Read())
             {
                 Studierichting studierichting = new Studierichting(
-                dataReader[0].ToString(),
+                Convert.ToInt16(dataReader[0]),
                 Convert.ToString(dataReader[1]),
                 Convert.ToInt32(dataReader[2])
                 );
@@ -63,7 +63,7 @@ namespace StudiepuntenApp_business.Persistence
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "DELETE FROM studiepunten.studierichting where (id = @id)";
+            string opdracht = "DELETE FROM studiepunten.studierichting where (IDStudierichting = @id)";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval

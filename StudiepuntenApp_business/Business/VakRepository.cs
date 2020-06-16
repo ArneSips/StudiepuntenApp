@@ -22,5 +22,17 @@ namespace StudiepuntenApp_business.Business
         {
             _vakLijst.Add(vak);
         }
+
+        public Vak getVak(int id)
+        {
+            foreach (Vak item in VakLijst)
+            {
+                if (item.IDVak == id)
+                {
+                    return item;
+                }           
+            }
+            return null;
+        }
     }
 }

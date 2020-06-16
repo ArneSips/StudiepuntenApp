@@ -22,9 +22,9 @@ namespace StudiepuntenApp_business.Persistence
         {
             //de connectie met de databank maken
             MySqlConnection conn = new MySqlConnection(_connectionString);
-
             //Het SQL-commando definiëren
-            MySqlCommand cmd = new MySqlCommand("SELECT vak.Naam as VakNaam, student.Naam as StudentNaam FROM studiepunten.vak_has_student INNER JOIN studiepunten.vak on vak_has_student.FKVak = vak.Naam INNER JOIN studiepunten.student on vak_has_student.FKStudent = student.Naam; ", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT * from studiepunten.vak_has_student", conn);
+            //MySqlCommand cmd = new MySqlCommand("SELECT vak.Naam as VakNaam, student.Naam as StudentNaam FROM studiepunten.vak_has_student INNER JOIN studiepunten.vak on vak_has_student.FKVak = vak.Naam INNER JOIN studiepunten.student on vak_has_student.FKStudent = student.Naam; ", conn);
             List<VakStudent> vakstudentLijst = new List<VakStudent>();
             conn.Open();
             MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -49,26 +49,26 @@ namespace StudiepuntenApp_business.Persistence
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval
-            cmd.Parameters.AddWithValue("idvak", vakstudent.IDVak);
-            cmd.Parameters.AddWithValue("idgebruiker", vakstudent.IDGebruiker);
+            cmd.Parameters.AddWithValue("idvak", vakstudent.FKVak);
+            cmd.Parameters.AddWithValue("idgebruiker", vakstudent.FKStudent);
 
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-        public void removeVakStudentFromDB(int idvak, int idgebruiker)
+        public void removeVakStudentFromDB(int fkvak, int fkstudent)
         {
             //de connectie met de databank maken
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "DELETE FROM studiepunten.vak_has_student where (idvak = @idvak, idgebruiker = @idgebruiker)";
+            string opdracht = "DELETE FROM studiepunten.vak_has_student where (FKVak = @FKV ) and( FKStudent = @FKS)";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval
 
-            cmd.Parameters.AddWithValue("@idvak", idvak);
-            cmd.Parameters.AddWithValue("@idgebruiker", idgebruiker);
+            cmd.Parameters.AddWithValue("FKV", fkvak);
+            cmd.Parameters.AddWithValue("FKS", fkstudent);
 
             conn.Open();
             cmd.ExecuteNonQuery();

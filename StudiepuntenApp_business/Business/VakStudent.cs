@@ -9,24 +9,24 @@ namespace StudiepuntenApp_business.Business
     public class VakStudent
     {
         //velden
-        private int _idvak;
-        private int _idgebruiker;
+        private int _fkvak;
+        private int _fkstudent;
 
         //Eigenschappen
-        public int IDVak
+        public int FKVak
         {
-            get { return _idvak; }
+            get { return _fkvak; }
         }
-        public int IDGebruiker
+        public int FKStudent
         {
-            get { return _idgebruiker; }
+            get { return _fkstudent; }
         }
 
         //Constructors
-        public VakStudent(int idvak, int idgebruiker)
+        public VakStudent(int fkvak, int fkstudent)
         {
-            _idvak = idvak;
-            _idgebruiker = idvak;
+            _fkvak = fkvak;
+            _fkstudent = fkstudent;
         }
     }
 }

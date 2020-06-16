@@ -24,18 +24,30 @@ namespace StudiepuntenApp_business.Persistence
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            MySqlCommand cmd = new MySqlCommand("SELECT student.Naam as Naam, studierichting.Naam as Studierichting FROM studiepunten.student_has_studierichting INNER JOIN studiepunten.student on student_has_studierichting.fkStudent = student.Naam INNER JOIN studiepunten.studierichting on student_has_studierichting.fkStudierichting = studierichting.Naam; ", conn);
-            List<StudentStudierichting> studentStudierichtingLijst = new List<StudentStudierichting>();
+            //MySqlCommand cmd = new MySqlCommand("SELECT student.Naam as Naam, studierichting.Naam as Studierichting FROM studiepunten.student_has_studierichting INNER JOIN studiepunten.student on student_has_studierichting.fkStudent = student.Naam INNER JOIN studiepunten.studierichting on student_has_studierichting.fkStudierichting = studierichting.Naam; ", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT * from studiepunten.student_has_studierichting", conn);
+            List <StudentStudierichting> studentStudierichtingLijst = new List<StudentStudierichting>();
             conn.Open();
             MySqlDataReader dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
+                DateTime tijd1, tijd2;
+                if (!dataReader.IsDBNull(3))
+                    {
+                    tijd1 = Convert.ToDateTime(dataReader[3]);
+                }
+                else { tijd1 = DateTime.MinValue; }
+                if (!dataReader.IsDBNull(4))
+                {
+                    tijd2 = Convert.ToDateTime(dataReader[4]);
+                }
+                else { tijd2 = DateTime.MinValue; }
                 StudentStudierichting studentstudierichting = new StudentStudierichting(
                 Convert.ToInt32(dataReader[0]),
                 Convert.ToInt32(dataReader[1]),
                 Convert.ToInt32(dataReader[2]),
-                Convert.ToDateTime(dataReader[3]),
-                Convert.ToDateTime(dataReader[4])
+                tijd1,
+                tijd2
                 );
                 studentStudierichtingLijst.Add(studentstudierichting);
             }

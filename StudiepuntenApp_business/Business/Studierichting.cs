@@ -29,24 +29,25 @@ namespace StudiepuntenApp_business.Business
 
 
         //Constructors
-        public Studierichting(int idstudierichting, string naam, string wachtwoord, int jaren)
+        public Studierichting(int idstudierichting, string naam, int jaren)
         {
             _idstudierichting = idstudierichting;
             _naam = naam;
             _jaren = jaren;
 
         }
-        public Studierichting(string naam, string wachtwoord, int jaren)
+        public Studierichting(string naam, int jaren)
         {
             _idstudierichting = 0;
             _naam = naam;
             _jaren = jaren;
         }
 
+
         //Methods
         public override string ToString()
         {
-            return _idstudierichting + " - " + _naam + _jaren;
+            return _idstudierichting + " - " + _naam + " - " + _jaren + " jaar";
         }
     }
 }

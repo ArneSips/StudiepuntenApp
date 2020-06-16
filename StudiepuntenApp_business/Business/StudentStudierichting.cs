@@ -57,11 +57,18 @@ namespace StudiepuntenApp_business.Business
             _startDatum = startdatum;
             _eindDatum = einddatum;
         }
+        public StudentStudierichting(int fkstudent, int fkstudierichting, DateTime startdatum)
+        {
+            _idstudentstudierichting = 0;
+            _fkstudent = fkstudent;
+            _fkstudierichting = fkstudierichting;
+            _startDatum = startdatum;
+        }
 
         //Methods
         public override string ToString()
         {
-            return _idstudentstudierichting + " - " + _fkstudent + " zit in richting: " + FKStudierichting + " begonnen op " + _startDatum + " en geëindigd op " + _eindDatum;
+            return _fkstudent + " zit in richting: " + FKStudierichting + " begonnen op " + _startDatum + " en geëindigd op " + _eindDatum;
         }
 
     }

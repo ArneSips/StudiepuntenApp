@@ -27,15 +27,14 @@ namespace StudiepuntenApp_WPF
         {
             InitializeComponent();
             _businesscontroller = new Controller();
-            /*lbxUsers.ItemsSource = _businesscontroller.GetStudents();*/
         }
 
         private void BtnBevestigInLoggen_Click(object sender, RoutedEventArgs e)
         {
-            Student student = _businesscontroller.getStudentLogIn(txtNaamInLoggen.Text, txtWachtwoordInLoggen.Text);
+            Student student = _businesscontroller.getStudentLogIn(txtNaamInLoggen.Text, txtWachtwoordInLoggen.Password);
             if (student != null)
             {
-                Info info = new Info();
+                Info info = new Info(_businesscontroller);
                 this.Close();
                 info.Show();
             }
@@ -47,7 +46,7 @@ namespace StudiepuntenApp_WPF
 
         private void BtnRegistreren_Click(object sender, RoutedEventArgs e)
         {
-            Registreren registreren = new Registreren();
+            Registreren registreren = new Registreren(_businesscontroller);
             this.Close();
             registreren.Show();
         }
@@ -59,17 +58,9 @@ namespace StudiepuntenApp_WPF
 
         private void BtnBeheerderLogIn_Click(object sender, RoutedEventArgs e)
         {
-            Student student = _businesscontroller.getStudentLogIn(txtNaamInLoggen.Text, txtWachtwoordInLoggen.Text);
-            if (student != null)
-            {
                 BeheerderLogIn beheerderlogin = new BeheerderLogIn();
                 this.Close();
                 beheerderlogin.Show();
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password.");
-            }
         }
     }
 }

@@ -22,5 +22,15 @@ namespace StudiepuntenApp_business.Business
         {
             _studentStudierichtingLijst.Add(studentStudierichting);
         }
+
+        public int getIdStudierichtingFromStudent(Student student)
+        {
+            foreach(StudentStudierichting item in StudentStudierichtingLijst)
+            {
+                if (item.FKStudent == student.IDGebruiker && item.EindDatum == DateTime.MinValue)
+                    return item.FKStudierichting;
+            }
+            return -1;
+        }
     }
 }

@@ -5,26 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudiepuntenApp_WPF"
         mc:Ignorable="d"
- Title="Info" Height="420" Width="570">
+        Title="Jouw studirichting" Height="600" Width="800">
     <Window.Background>
-        <ImageBrush ImageSource="images/b3.jpg"/>
+        <ImageBrush ImageSource="images/b10.jpg"/>
     </Window.Background>
-    <Grid>
-        <ListBox x:Name="lbxStudierichtingStudiejaar" HorizontalAlignment="Left" Height="131" Margin="10,241,0,0" VerticalAlignment="Top" Width="232"/>
-        <ListBox x:Name="lbxVak" HorizontalAlignment="Left" Height="228" Margin="319,144,0,0" VerticalAlignment="Top" Width="218"/>
-        <Button x:Name="btnVak" Content="Voeg vak toe" HorizontalAlignment="Left" Margin="319,109,0,0" VerticalAlignment="Top" Width="218" Click="BtnVak_Click"/>
-        <Label Content="Vak:" HorizontalAlignment="Left" Margin="254,18,0,0" VerticalAlignment="Top" Width="60" Background="#FF646464" FontWeight="Bold" Height="24"/>
-        <TextBox x:Name="txtVak" HorizontalAlignment="Left" Height="23" Margin="319,18,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Uren:" HorizontalAlignment="Left" Margin="254,47,0,0" VerticalAlignment="Top" Background="#FF646464" Width="60" FontWeight="Bold" Height="23"/>
-        <TextBox x:Name="txtUren" HorizontalAlignment="Left" Height="23" Margin="319,47,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <Label Content="Punten:" HorizontalAlignment="Left" Margin="254,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.053,0.346" Background="#FF646464" FontWeight="Bold" Width="60" Height="23"/>
-        <TextBox x:Name="txtPunten" HorizontalAlignment="Left" Height="23" Margin="319,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218"/>
-        <ComboBox x:Name="cbxStudiejaar" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="232"/>
-        <TextBox x:Name="txtStudierichting" HorizontalAlignment="Left" Height="23" Margin="10,93,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
-        <Button x:Name="btnStudierichting" Content="Studierichting toevoegen" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Width="232" Click="BtnStudierichting_Click"/>
-        <ComboBox x:Name="cbxStudierichting" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="232"/>
-        <Label Content="Indien je studierichting niet in de lijst" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.079,0.538" Height="25" Width="232" Background="#FF646464" FontWeight="Bold"/>
-        <Label Content="staat vul je hem hieronder in." HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="232" Background="#FF646464" Height="27" FontWeight="Bold"/>
-        <Label Content="Selecteer je studiejaar:" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Width="232" Background="#FF646464" FontWeight="Bold"/>
+    <Grid Margin="0,0,0,-444">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="31"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="31"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblNameStudent" Grid.Row="1" Grid.Column="5" Content="Naam student:" Foreground="White" FontSize="24" FontWeight="Bold"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Studierichting:" Foreground="White" FontSize="24" FontWeight="Bold" />
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbxStudierichting" SelectionChanged="CbxStudierichting_SelectionChanged" FontSize="16"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="Studiejaar:" Foreground="White" FontSize="24" FontWeight="Bold"/>
+
+        <Label Grid.Row="9" Grid.Column="5" Content="Selecteer eigen vak:" Background="#FF646464" FontWeight="Bold" FontSize="16" Margin="2,0,0,0"/>
+        <ListBox x:Name="lbxExtraVak" Grid.Row="11" Grid.RowSpan="2" Grid.Column="5" Margin="2,0,0,0"/>
+        <Label x:Name="lblPunten" Grid.Row="13" Grid.Column="5" Background="#FF838383" FontWeight="Bold" FontSize="16" Margin="2,0,0,0"/>
+        <ListBox x:Name="lbxVak" Grid.Row="11" Grid.RowSpan="3" Grid.Column="1" Margin="1,0,0,0"/>
+        <ComboBox x:Name="cbxStudiejaar" Grid.Row="7" Grid.Column="1" FontSize="16"/>
+        <Button x:Name="btnVakErbij" Grid.Row="11" Grid.Column="3" Click="BtnVakErbij_Click">
+            <Image Source="/images/right.png" Width="50"/>
+        </Button>
+        <Button x:Name="btnVakEraf"  Grid.Row="13" Grid.Column="3" Click="BtnVakEraf_Click">
+            <Image Source="/images/left.png" Width="50"/>
+        </Button>
+        <Button x:Name="btnStudierichting" Grid.Row="5" Grid.Column="5" Content="Studierichting en studiejaar toevoegen" Click="BtnStudierichting_Click" FontSize="16" />
+        <Button x:Name="btnLogOut" Content="Log Out" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="5" Click="BtnLogOut_Click" FontSize="24" Margin="0,24,0,486" RenderTransformOrigin="0.5,0.5"/>
+        <Label Grid.Row="9" Grid.Column="1" Content="Selecteer extra vak:" Background="#FF646464" FontWeight="Bold" FontSize="16" Margin="2,0,0,0"/>
     </Grid>
 </Window>

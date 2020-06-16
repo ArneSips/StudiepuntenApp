@@ -5,18 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudiepuntenApp_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="200" Width="300">
+        Title="Login" Height="600" Width="800">
     <Window.Background>
         <ImageBrush ImageSource="images/b1.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="BtnBevestigInLoggen" Content="Log in" HorizontalAlignment="Left" Margin="135,88,0,0" VerticalAlignment="Top" Width="120" Click="BtnBevestigInLoggen_Click"/>
-        <TextBox x:Name="txtNaamInLoggen" HorizontalAlignment="Left" Height="23" Margin="135,32,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtWachtwoordInLoggen" HorizontalAlignment="Left" Height="23" Margin="135,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Naam:" HorizontalAlignment="Left" Margin="39,32,0,0" VerticalAlignment="Top" Background="#FFF5902B" Width="85" Height="23" FontWeight="Bold"/>
-        <Label Content="Wachtwoord:" HorizontalAlignment="Left" Margin="39,60,0,0" VerticalAlignment="Top" Background="#FFF5902B" Height="23" FontWeight="Bold"/>
-        <Button x:Name="btnRegistreren" Content="Registreren" HorizontalAlignment="Left" Margin="135,113,0,0" VerticalAlignment="Top" Width="120" Click="BtnRegistreren_Click"/>
-        <Button x:Name="btnBeheerderLogIn" Content="Beheerder log in" HorizontalAlignment="Left" Margin="134,139,0,0" VerticalAlignment="Top" Width="121" Click="BtnBeheerderLogIn_Click"/>
-        <!--<ListBox x:Name="lbxUsers" HorizontalAlignment="Left" Height="215" Margin="10,144,0,0" VerticalAlignment="Top" Width="272" SelectionChanged="LbxUsers_SelectionChanged"/>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="1" Content="Naam:" Background="#FFF5902B" Height="40" FontWeight="Bold" FontSize="24"/>
+        <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtNaamInLoggen" TextWrapping="Wrap" Text="" Height="40" FontSize="24"/>
+        <Label Grid.Column="1" Grid.Row="3" Content="Wachtwoord:" Background="#FFF5902B" Height="40" FontWeight="Bold" FontSize="24"/>
+        <PasswordBox Grid.Column="3" Grid.Row="3" Height="40" x:Name="txtWachtwoordInLoggen" FontSize="24"/>
+        <Button Grid.Column="3" Grid.Row="5" Height="40" x:Name="BtnBevestigInLoggen" Content="Log in" Click="BtnBevestigInLoggen_Click" FontSize="24"/>
+        <Button Grid.Column="3" Grid.Row="7" Height="40" x:Name="btnRegistreren" Content="Registreren" Click="BtnRegistreren_Click" FontSize="24"/>
+        <Button Grid.Column="3" Grid.Row="9" Height="40" x:Name="btnBeheerderLogIn" Content="Beheerder log in"  Click="BtnBeheerderLogIn_Click" FontSize="24"/>
     </Grid>
 </Window>

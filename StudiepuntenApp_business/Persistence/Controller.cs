@@ -19,6 +19,12 @@ namespace StudiepuntenApp_business.Persistence
             _connectionString = connectionString;
         }
 
+        public List<Vak> GetVakFromStudentFromDB(int idstudent)
+        {
+            VakMapper mapper = new VakMapper(_connectionString);
+            return mapper.GetVakFromStudentFromDB(idstudent);
+        }
+
         public List<Student> getStudent()
         {
             StudentMapper mapper = new StudentMapper(_connectionString);
@@ -60,11 +66,16 @@ namespace StudiepuntenApp_business.Persistence
         {
             StudiejaarMapper mapper = new StudiejaarMapper(_connectionString);
             return mapper.getStudiejaarFromDB();
-        }
+        } 
         public void addStudiejaar(Studiejaar studiejaar)
         {
             StudiejaarMapper mapper = new StudiejaarMapper(_connectionString);
             mapper.addStudiejaarToDB(studiejaar);
+        }
+        public List<Studiejaar> getStudiejaarFromStudierichting(Studierichting studierichting)
+        {
+            StudiejaarMapper mapper = new StudiejaarMapper(_connectionString);
+            return mapper.getStudiejaarFromStudierichtingFromDB(studierichting);
         }
 
         public List<Studierichting> getStudierichting()

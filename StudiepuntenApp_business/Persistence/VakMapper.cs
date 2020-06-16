@@ -52,7 +52,7 @@ namespace StudiepuntenApp_business.Persistence
 
             //voeg de waarden toe, je haalt ze uit het object eval
             cmd.Parameters.AddWithValue("naam", vak.Naam);
-            cmd.Parameters.AddWithValue("jaren", vak.Lesuren);
+            cmd.Parameters.AddWithValue("lesuren", vak.Lesuren);
             cmd.Parameters.AddWithValue("punten", vak.Punten);
 
             conn.Open();
@@ -65,7 +65,7 @@ namespace StudiepuntenApp_business.Persistence
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "DELETE FROM studiepunten.vak where (id = @id)";
+            string opdracht = "DELETE FROM studiepunten.vak where (IDVak = @id)";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval
@@ -96,5 +96,55 @@ namespace StudiepuntenApp_business.Persistence
             conn.Close();
         }
 
+        public List<Vak> GetVakFromStudentFromDB(int idstudent)
+        {
+            MySqlConnection conn = new MySqlConnection(_connectionString);
+            string opdracht = "SELECT studiepunten.vak.* FROM studiepunten.vak INNER JOIN studiepunten.vak_has_student on studiepunten.vak.IDVak = studiepunten.vak_has_student.FKVak WHERE studiepunten.vak_has_student.FKStudent = @idstudent";
+            MySqlCommand cmd = new MySqlCommand(opdracht, conn);
+
+            cmd.Parameters.AddWithValue("@idstudent", idstudent);
+
+            List<Vak> vakLijstStudent = new List<Vak>();
+            conn.Open();
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+            while (dataReader.Read())
+            {
+                Vak vak = new Vak(
+                Convert.ToInt32(dataReader[0]),
+                Convert.ToString(dataReader[1]),
+                Convert.ToInt32(dataReader[2]),
+                Convert.ToInt32(dataReader[3])
+                );
+                vakLijstStudent.Add(vak);
+            }
+            conn.Close();
+            return vakLijstStudent;
+        }
+        /*
+        public List<Vak> getVakFromStudierichtingFromDB(Studierichting studierichting)
+        {
+            //de connectie met de databank maken
+            MySqlConnection conn = new MySqlConnection(_connectionString);
+
+            //Het SQL-commando definiëren
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM studiepunten.vak where ", conn);
+            cmd.Parameters.AddWithValue("", studierichting.);
+            List<Vak> vakLijst = new List<Vak>();
+            conn.Open();
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+            while (dataReader.Read())
+            {
+                Vak vak = new Vak(
+                Convert.ToInt32(dataReader[0]),
+                Convert.ToString(dataReader[1]),
+                Convert.ToInt32(dataReader[2]),
+                Convert.ToInt32(dataReader[3])
+                );
+                vakLijst.Add(vak);
+            }
+            conn.Close();
+            return vakLijst;
+        }
+        */
     }
 }

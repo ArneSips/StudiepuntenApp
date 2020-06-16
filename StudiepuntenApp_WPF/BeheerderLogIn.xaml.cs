@@ -36,8 +36,8 @@ namespace StudiepuntenApp_WPF
 
         private void BtnBevestigInLoggenBeheerder_Click(object sender, RoutedEventArgs e)
         {
-            Student student = _businesscontroller.getStudentLogIn(txtNaamInLoggen.Text, txtWachtwoordInLoggen.Text);
-            if (student != null)
+            Student student = _businesscontroller.getStudentLogIn(txtNaamInLoggen.Text, txtWachtwoordInLoggen.Password);
+            if (txtNaamInLoggen.Text=="admin" || txtWachtwoordInLoggen.Password=="admin")
             {
                 BeheerderPagina beheerderpagina  = new BeheerderPagina();
                 this.Close();

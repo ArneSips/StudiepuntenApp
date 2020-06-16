@@ -47,7 +47,7 @@ namespace StudiepuntenApp_business.Business
         //Methods
         public override string ToString()
         {
-            return _idstudiejaar + " - " + _naam + _fkStudierichting;
+            return _naam;
         }
     }
 }

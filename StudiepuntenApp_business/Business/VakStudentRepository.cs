@@ -18,9 +18,35 @@ namespace StudiepuntenApp_business.Business
         }
         //constructor
         //methods
-        public void addVakStudentToRepository(VakStudent vakstudent)
+        public bool addVakStudentToRepository(VakStudent vakstudent)
         {
+            foreach(VakStudent item in VakStudentLijst)
+            {
+                if (item.FKVak == vakstudent.FKVak && item.FKStudent == vakstudent.FKStudent)
+                    return false;
+            }
             _vakStudentLijst.Add(vakstudent);
+            return true;
+        }
+
+        public List<VakStudent> getVakFromStudent(Student student)
+        {
+            List<VakStudent> returnlijst = new List<VakStudent>();
+            foreach (VakStudent item in VakStudentLijst)
+            {
+                if (item.FKStudent == student.IDGebruiker)
+                    returnlijst.Add(item);
+            }
+            return returnlijst;
+        }
+
+        public void removeVakStudentFromRepository(VakStudent vakstudent)
+        {
+            foreach(VakStudent item in VakStudentLijst)
+            {
+                if (item.FKVak == vakstudent.FKVak && item.FKStudent == vakstudent.FKStudent)
+                    _vakStudentLijst.Remove(vakstudent);
+            }
         }
     }
 }

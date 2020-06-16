@@ -53,7 +53,7 @@ namespace StudiepuntenApp_business.Business
         //Methods
         public override string ToString()
         {
-            return _idvak + " - " + _naam + _lesuren + _punten;
+            return _idvak + " - " + _naam + " - " + _lesuren + " uur" + " - " + _punten + " punten";
         }
 
     }

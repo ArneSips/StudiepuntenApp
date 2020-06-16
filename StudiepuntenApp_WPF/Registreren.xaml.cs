@@ -21,10 +21,10 @@ namespace StudiepuntenApp_WPF
     {
        
             private Controller _controller;
-            public Registreren()
+            public Registreren(Controller businesscontroller)
             {
                 InitializeComponent();
-                _controller = new Controller();
+                _controller = businesscontroller;
             }
 
             private void BtnRegisterAccount_Click(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace StudiepuntenApp_WPF
                 }
                 finally
                 {
-                    Student student = new Student(naam, wachtwoord);
+                    Student student = new Student(naam, wachtwoord, -1);
                     _controller.addStudent(student);
                 }
                 MainWindow mainwindow = new MainWindow();
@@ -48,6 +48,12 @@ namespace StudiepuntenApp_WPF
 
 
             }
-        
+
+        private void BtnTerug_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainwindow = new MainWindow();
+            this.Close();
+            mainwindow.Show();
+        }
     }
 }

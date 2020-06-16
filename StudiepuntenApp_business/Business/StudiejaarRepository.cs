@@ -22,5 +22,19 @@ namespace StudiepuntenApp_business.Business
         {
             _studiejaarLijst.Add(studiejaar);
         }
+
+        public int getIndexStudiejaarFromStudent(int idstudiejaar)
+        {
+            int index = 0;
+            foreach (Studiejaar item in StudiejaarLijst)
+            {
+                if (item.IDStudiejaar == idstudiejaar)
+                {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
+        }
     }
 }

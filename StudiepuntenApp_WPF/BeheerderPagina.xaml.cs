@@ -25,6 +25,8 @@ namespace StudiepuntenApp_WPF
         {
             InitializeComponent();
             _controller = new Controller();
+            lbxStudierichting.ItemsSource = _controller.GetStudierichtings();
+            lbxVak.ItemsSource = _controller.GetVaks();
         }
 
         private void BtnLogOut_Click(object sender, RoutedEventArgs e)
@@ -48,6 +50,34 @@ namespace StudiepuntenApp_WPF
             _controller.removeStudierichting(studierichting.IDStudierichting);
             lbxStudierichting.ItemsSource = _controller.GetStudierichtings();
             lbxStudierichting.Items.Refresh();
+        }
+
+        private void BtnVoegStudierichtingToe_Click(object sender, RoutedEventArgs e)
+        {
+            Studierichting studierichting = new Studierichting(txtStudierichting.Text, Convert.ToInt32(txtJaren.Text));
+            _controller.addStudierichting(studierichting);
+            lbxStudierichting.ItemsSource = _controller.GetStudierichtings();
+            lbxStudierichting.Items.Refresh();
+            txtStudierichting.Clear();
+            txtJaren.Clear();
+        }
+
+        private void BtnVoegVakToe_Click(object sender, RoutedEventArgs e)
+        {
+            Vak vak = new Vak(txtVak.Text, Convert.ToInt32(txtUren.Text), Convert.ToInt32(txtPunten.Text));
+            _controller.addVak(vak);
+            lbxVak.ItemsSource = _controller.GetVaks();
+            lbxVak.Items.Refresh();
+            txtVak.Clear();
+            txtUren.Clear();
+            txtPunten.Clear();
+        }
+
+        private void BtnPagina2_Click(object sender, RoutedEventArgs e)
+        {
+            BeheerderPagina2 beheerderspagina2 = new BeheerderPagina2();
+            this.Close();
+            beheerderspagina2.Show();
         }
     }
 }

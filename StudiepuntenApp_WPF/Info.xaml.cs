@@ -21,34 +21,72 @@ namespace StudiepuntenApp_WPF
     public partial class Info : Window
     {
         Controller _controller;
-        public Info()
+
+        public Info(Controller businesscontroller)
         {
             InitializeComponent();
-            _controller = new Controller();
-            lbxVak.ItemsSource = _controller.GetVaks();
-            lbxStudierichtingStudiejaar.ItemsSource = _controller.GetStudierichtings();
-            lbxStudierichtingStudiejaar.ItemsSource = _controller.GetStudiejaars();
-        }
+            _controller = businesscontroller;
+            //lblNameStudent.Content = _controller.GetStudents(_controller.getNaamIngelogdeStudent());
+            cbxStudierichting.ItemsSource = _controller.GetStudierichtings();
+            cbxStudierichting.SelectedIndex = _controller.getIndexStudierichtingIngelogdeStudent();
 
-        private void BtnVak_Click(object sender, RoutedEventArgs e)
-        {
-            Vak vak = new Vak(txtVak.Text, Convert.ToInt32(txtUren), Convert.ToInt32(txtPunten.Text));
-            _controller.addVak(vak);
+            cbxStudiejaar.SelectedIndex = _controller.getIndexStudiejaarIngelogdeStudent();
+
             lbxVak.ItemsSource = _controller.GetVaks();
-            lbxVak.Items.Refresh();
+            lbxExtraVak.ItemsSource = _controller.getVakIngelogdeStudent();
+            lblPunten.Content = _controller.getTotalPunten(_controller.getVakIngelogdeStudent());
         }
 
         private void BtnStudierichting_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            Studierichting studierichting = new Studierichting(Convert.ToString(cbxStudierichting.SelectedItem));
-            Studiejaar studiejaar = new Studiejaar(Convert.ToString(cbxStudiejaar.SelectedItem));
-            _controller.addStudierichting(studierichting);
-            _controller.addStudiejaar(studiejaar);
-            lbxStudierichtingStudiejaar.ItemsSource = _controller.GetStudierichtings();
-            lbxStudierichtingStudiejaar.ItemsSource = _controller.GetStudiejaars();
-            lbxStudierichtingStudiejaar.Items.Refresh();
-            */
+            //_controller.addStudierichtingToStudent((Studierichting)cbxStudierichting.SelectedItem),(Studiejaar)cbxStudiejaar.SelectedItem);
+            //cbxStudiejaar.Items.Refresh();
+            //cbxStudierichting.Items.Refresh();
+            if (cbxStudierichting.SelectedItem != null && cbxStudiejaar.SelectedItem != null)
+            {
+                Studierichting studierichting = (Studierichting)cbxStudierichting.SelectedItem;
+                Studiejaar studiejaar = (Studiejaar)(cbxStudiejaar.SelectedItem);
+                _controller.addStudierichtingToStudent(studierichting, studiejaar);
+                MessageBox.Show("Je studierichting en studiejaar zijn toegevoegd.");
+            }
+            else
+            {
+               MessageBox.Show("Selecteer een studierichting en studiejaar!");
+            }
         }
-    }
+
+        private void CbxStudierichting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cbxStudiejaar.ItemsSource = _controller.GetStudiejaarFromStudierichting((Studierichting)cbxStudierichting.SelectedItem);
+            cbxStudiejaar.Items.Refresh();
+        }
+
+        private void BtnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainwindow = new MainWindow();
+            this.Close();
+            mainwindow.Show();
+        }
+
+        private void BtnVakErbij_Click(object sender, RoutedEventArgs e)
+        {
+            if (_controller.addVakToStudent((Vak)lbxVak.SelectedItem))
+            {
+                lbxExtraVak.ItemsSource = _controller.getVakIngelogdeStudent();
+                lbxExtraVak.Items.Refresh();
+                lblPunten.Content = _controller.getTotalPunten(_controller.getVakIngelogdeStudent());
+            }
+            else
+                MessageBox.Show("Dit vak was al toegevoegd.");
+        }
+
+        private void BtnVakEraf_Click(object sender, RoutedEventArgs e)
+        {
+                Vak vak = (Vak)(lbxExtraVak.SelectedItem);
+                _controller.removeVakstudent(vak.IDVak);
+                lbxExtraVak.ItemsSource = _controller.getVakIngelogdeStudent();
+                lbxExtraVak.Items.Refresh();
+                lblPunten.Content = _controller.getTotalPunten(_controller.getVakIngelogdeStudent());
+        }
+    }   
 }

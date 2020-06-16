@@ -30,11 +30,20 @@ namespace StudiepuntenApp_business.Persistence
             MySqlDataReader dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
+                int fkstudiejaar;
+                if (!dataReader.IsDBNull(4))
+                {
+                    fkstudiejaar = Convert.ToInt32(dataReader[4]);
+
+                }
+                else
+                    fkstudiejaar = -1;
                 Student student = new Student(
                 Convert.ToInt16(dataReader[0]),
                 Convert.ToString(dataReader[1]),
                 Convert.ToString(dataReader[2]),
-                Convert.ToInt32(dataReader[3])
+                Convert.ToInt32(dataReader[3]),
+                fkstudiejaar
                 );
                 studentLijst.Add(student);
             }

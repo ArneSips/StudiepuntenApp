@@ -60,5 +60,28 @@ namespace StudiepuntenApp_business.Persistence
             conn.Close();
         }
 
+        public List<Studiejaar> getStudiejaarFromStudierichtingFromDB(Studierichting studierichting)
+        {
+            //de connectie met de databank maken
+            MySqlConnection conn = new MySqlConnection(_connectionString);
+
+            //Het SQL-commando definiëren
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM studiepunten.studiejaar where FKStudierichting = @IDStudierichting", conn);
+            cmd.Parameters.AddWithValue("IDStudierichting", studierichting.IDStudierichting);
+            List<Studiejaar> studiejaarLijst = new List<Studiejaar>();
+            conn.Open();
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+            while (dataReader.Read())
+            {
+                Studiejaar studiejaar = new Studiejaar(
+                Convert.ToInt16(dataReader[0]),
+                Convert.ToString(dataReader[1]),
+                Convert.ToInt32(dataReader[2])
+                );
+                studiejaarLijst.Add(studiejaar);
+            }
+            conn.Close();
+            return studiejaarLijst;
+        }
     }
 }

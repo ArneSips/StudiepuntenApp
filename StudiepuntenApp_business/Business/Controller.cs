@@ -8,6 +8,8 @@ namespace StudiepuntenApp_business.Business
 {
     public class Controller
     {
+        //private Vak _vak;
+
         private Persistence.Controller _persistController;
         private StudentRepository _studentRepository;
         private StudentStudierichtingRepository _studentStudierichtingRepository;
@@ -17,16 +19,22 @@ namespace StudiepuntenApp_business.Business
         private VakStudentRepository _vakStudentRepository;
         private VakStudiejaarRepository _vakStudiejaarRepository;
         private Student _ingelogdeStudent;
+        public Student IngelogdeStudent
+        {
+            get { return _ingelogdeStudent; }
+        }
 
         public Controller()
         {
+            //_vak = new Vak();
+
             _persistController = new Persistence.Controller();
             _studentRepository = new StudentRepository();
             _studentStudierichtingRepository = new StudentStudierichtingRepository();
             _studiejaarRepository = new StudiejaarRepository();
             _studierichtingRepository = new StudierichtingRepository();
             _vakRepository = new VakRepository();
-           // _vakStudentRepository = new VakStudentRepository();
+            _vakStudentRepository = new VakStudentRepository();
             _vakStudiejaarRepository = new VakStudiejaarRepository();
 
             _studentRepository.StudentLijst = _persistController.getStudent();
@@ -34,19 +42,22 @@ namespace StudiepuntenApp_business.Business
             _studiejaarRepository.StudiejaarLijst = _persistController.getStudiejaar();
             _studierichtingRepository.StudierichtingLijst = _persistController.getStudierichting();
             _vakRepository.VakLijst = _persistController.getVak();
+            _vakStudentRepository.VakStudentLijst = _persistController.getVakStudent();
             _vakStudiejaarRepository.VakStudiejaarLijst = _persistController.getVakStudiejaar();
             _ingelogdeStudent = null;
         }
 
         public Controller(string connectionstring)
         {
+            //_vak = new Vak();
+
             _persistController = new Persistence.Controller(connectionstring);
             _studentRepository = new StudentRepository();
             _studentStudierichtingRepository = new StudentStudierichtingRepository();
             _studiejaarRepository = new StudiejaarRepository();
             _studierichtingRepository = new StudierichtingRepository();
             _vakRepository = new VakRepository();
-            //_vakStudentRepository = new VakStudentRepository();
+            _vakStudentRepository = new VakStudentRepository();
             _vakStudiejaarRepository = new VakStudiejaarRepository();
             _ingelogdeStudent = null;
 
@@ -55,7 +66,7 @@ namespace StudiepuntenApp_business.Business
             _studiejaarRepository.StudiejaarLijst = _persistController.getStudiejaar();
             _studierichtingRepository.StudierichtingLijst = _persistController.getStudierichting();
             _vakRepository.VakLijst = _persistController.getVak();
-            //_vakStudentRepository.VakStudentLijst = _persistController.getVakStudent();
+            _vakStudentRepository.VakStudentLijst = _persistController.getVakStudent();
             _vakStudiejaarRepository.VakStudiejaarLijst = _persistController.getVakStudiejaar();
         }
 
@@ -93,6 +104,11 @@ namespace StudiepuntenApp_business.Business
             _persistController.adjustStudentStudierichting(studentstudierichting, id);
             _studentStudierichtingRepository.StudentStudierichtingLijst = _persistController.getStudentStudierichting();
         }
+        public int getIndexStudierichtingIngelogdeStudent()
+        {
+            int idStudierichting= _studentStudierichtingRepository.getIdStudierichtingFromStudent(_ingelogdeStudent);
+            return _studierichtingRepository.getIndexFromIdStudierichting(idStudierichting);
+        }
 
         public List<Studiejaar> GetStudiejaars()
         {
@@ -102,6 +118,26 @@ namespace StudiepuntenApp_business.Business
         {
             _persistController.addStudiejaar(studiejaar);
             _studiejaarRepository.StudiejaarLijst = _persistController.getStudiejaar();
+        }
+        public List<Studiejaar> GetStudiejaarFromStudierichting(Studierichting studierichting)
+        {
+            return _persistController.getStudiejaarFromStudierichting(studierichting);
+        }
+        public int getIndexStudiejaarFromStudierichting(Studierichting studierichting)
+        {
+            int index = 0;
+            List<Studiejaar> studiejaarlijst = GetStudiejaarFromStudierichting(studierichting);
+            foreach (Studiejaar item in studiejaarlijst)
+            {
+                if (item.IDStudiejaar == _ingelogdeStudent.FKStudiejaar)
+                    return index;
+                index++;
+            }
+            return -1;
+        }
+        public int getIndexStudiejaarIngelogdeStudent()
+        {
+            return _studiejaarRepository.getIndexStudiejaarFromStudent(_ingelogdeStudent.FKStudiejaar);
         }
 
         public List<Studierichting> GetStudierichtings()
@@ -122,6 +158,10 @@ namespace StudiepuntenApp_business.Business
         {
             _persistController.adjustStudierichting(studierichting, id);
             _studierichtingRepository.StudierichtingLijst = _persistController.getStudierichting();
+        }
+        public List<Studierichting> addStudierichtingToStudent(Studierichting studierichting, Studiejaar studiejaar)
+        {
+            return null;
         }
 
         public List<Vak> GetVaks()
@@ -153,10 +193,34 @@ namespace StudiepuntenApp_business.Business
             _persistController.addVakStudent(vakstudent);
             _vakStudentRepository.VakStudentLijst = _persistController.getVakStudent();
         }
-        public void removeVakstudent(int idvak, int idgebruiker)
+        public void removeVakstudent(int idvak)
         {
-            _persistController.removeVakStudent(idvak, idgebruiker);
+            _persistController.removeVakStudent(idvak, _ingelogdeStudent.IDGebruiker);
             _vakStudentRepository.VakStudentLijst = _persistController.getVakStudent();
+        }
+        
+        public List<Vak> getVakIngelogdeStudent()
+        {
+            List<VakStudent> vakstudentlijst = _vakStudentRepository.getVakFromStudent(_ingelogdeStudent);
+            List<Vak> vakkenlijst = new List<Vak>();
+            foreach (VakStudent item in vakstudentlijst)
+            {
+                Vak vak = _vakRepository.getVak(item.FKVak);
+                vakkenlijst.Add(vak);
+            }
+            return vakkenlijst;
+        }
+        
+        public bool addVakToStudent(Vak vak)
+        {
+            VakStudent vakstudent = new VakStudent (vak.IDVak, IngelogdeStudent.IDGebruiker);
+            if (_vakStudentRepository.addVakStudentToRepository(vakstudent))
+            {
+                _persistController.addVakStudent(vakstudent);
+                return true;
+            }
+            else
+                return false;
         }
 
         public List<VakStudiejaar> GetVakStudiejaars()
@@ -176,8 +240,24 @@ namespace StudiepuntenApp_business.Business
 
         public Student getStudentLogIn(string naam, string wachtwoord)
         {
-            Student _ingelogdeStudent = _studentRepository.getStudentLogIn(naam, wachtwoord);
+            _ingelogdeStudent = _studentRepository.getStudentLogIn(naam, wachtwoord);
             return _ingelogdeStudent;
+        }
+
+        public double getTotalPunten(List<Vak> vak)
+        {
+            double totalPunten = 0;
+
+            foreach (Vak item in vak)
+            {
+                totalPunten += item.Punten;
+            }
+            return totalPunten;
+        }
+
+        public string getNaamIngelogdeStudent(List<Student> student)
+        {
+            return null;
         }
     }
 }

@@ -23,5 +23,18 @@ namespace StudiepuntenApp_business.Business
         {
             _studierichtingLijst.Add(studierichting);
         }
+        public int getIndexFromIdStudierichting(int idStudierichting)
+        {
+            int index = 0;
+            foreach(Studierichting item in StudierichtingLijst)
+            {
+                if(item.IDStudierichting == idStudierichting)
+                {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
+        }
     }
 }
