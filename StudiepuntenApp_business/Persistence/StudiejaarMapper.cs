@@ -33,7 +33,8 @@ namespace StudiepuntenApp_business.Persistence
                 Studiejaar studiejaar = new Studiejaar(
                 Convert.ToInt16(dataReader[0]),
                 Convert.ToString(dataReader[1]),
-                Convert.ToInt32(dataReader[2])
+                Convert.ToInt32(dataReader[2]),
+                Convert.ToInt32(dataReader[3])
                 );
                 studiejaarLijst.Add(studiejaar);
             }
@@ -46,13 +47,14 @@ namespace StudiepuntenApp_business.Persistence
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "INSERT INTO studiepunten.studiejaar (IDStudiejaar, Naam, FKStudierichting) VALUES (@id, @naam, @fkstudierichting);";
+            string opdracht = "INSERT INTO studiepunten.studiejaar (IDStudiejaar, Naam, FKStudierichting, FKStudent) VALUES (@id, @naam, @fkstudierichting, @fkstudent);";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval
             cmd.Parameters.AddWithValue("id", studiejaar.IDStudiejaar);
             cmd.Parameters.AddWithValue("naam", studiejaar.Naam);
             cmd.Parameters.AddWithValue("fkstudierichting", studiejaar.FKStudierichting);
+            cmd.Parameters.AddWithValue("fkstudent", studiejaar.FKStudent);
 
 
             conn.Open();
@@ -76,7 +78,8 @@ namespace StudiepuntenApp_business.Persistence
                 Studiejaar studiejaar = new Studiejaar(
                 Convert.ToInt16(dataReader[0]),
                 Convert.ToString(dataReader[1]),
-                Convert.ToInt32(dataReader[2])
+                Convert.ToInt32(dataReader[2]),
+                Convert.ToInt32(dataReader[3])
                 );
                 studiejaarLijst.Add(studiejaar);
             }

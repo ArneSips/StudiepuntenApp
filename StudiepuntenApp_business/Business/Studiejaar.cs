@@ -12,6 +12,7 @@ namespace StudiepuntenApp_business.Business
         private int _idstudiejaar;
         private string _naam;
         private int _fkStudierichting;
+        private int _fkstudent;
 
         //Eigenschappen
         public int IDStudiejaar
@@ -26,22 +27,27 @@ namespace StudiepuntenApp_business.Business
         {
             get { return _fkStudierichting; }
         }
+        public int FKStudent
+        {
+            get { return _fkStudierichting; }
+        }
 
 
 
         //Constructors
-        public Studiejaar(int idstudiejaar, string naam, int fkstudierichting)
+        public Studiejaar(int idstudiejaar, string naam, int fkstudierichting, int fkstudent)
         {
             _idstudiejaar = idstudiejaar;
             _naam = naam;
             _fkStudierichting = fkstudierichting;
-
+            _fkstudent = fkstudent;
         }
-        public Studiejaar(string naam, int fkstudierichting)
+        public Studiejaar(string naam, int fkstudierichting, int fkstudent)
         {
             _idstudiejaar = 0;
             _naam = naam;
             _fkStudierichting = fkstudierichting;
+            _fkstudent = fkstudent;
         }
 
         //Methods

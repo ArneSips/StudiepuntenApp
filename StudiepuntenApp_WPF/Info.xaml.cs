@@ -30,8 +30,19 @@ namespace StudiepuntenApp_WPF
             cbxStudierichting.ItemsSource = _controller.GetStudierichtings();
             cbxStudierichting.SelectedIndex = _controller.getIndexStudierichtingIngelogdeStudent();
 
-            cbxStudiejaar.SelectedIndex = _controller.getIndexStudiejaarIngelogdeStudent();
-
+            int idstudiejaar = _controller.IngelogdeStudent.FKStudiejaar;
+            List<Studiejaar> lijstStudiejaren = _controller.GetStudiejaarFromStudierichting((Studierichting)cbxStudierichting.SelectedItem);
+            int index = 0;
+            foreach (Studiejaar jaar in lijstStudiejaren)
+            {
+                if (jaar.IDStudiejaar == idstudiejaar)
+                {
+                    cbxStudiejaar.SelectedIndex = index;
+                    break;
+                }
+                index++;
+            }
+           
             lbxVak.ItemsSource = _controller.GetVaks();
             lbxExtraVak.ItemsSource = _controller.getVakIngelogdeStudent();
             lblPunten.Content = _controller.getTotalPunten(_controller.getVakIngelogdeStudent());
@@ -46,8 +57,10 @@ namespace StudiepuntenApp_WPF
             {
                 Studierichting studierichting = (Studierichting)cbxStudierichting.SelectedItem;
                 Studiejaar studiejaar = (Studiejaar)(cbxStudiejaar.SelectedItem);
-                _controller.addStudierichtingToStudent(studierichting, studiejaar);
-                MessageBox.Show("Je studierichting en studiejaar zijn toegevoegd.");
+                if (_controller.addStudierichtingStudiejaarToStudent(studierichting, studiejaar))
+                    MessageBox.Show("Je studierichting en studiejaar zijn toegevoegd.");
+                else
+                    MessageBox.Show("Deze studierichting was al toegevoegd.");
             }
             else
             {
@@ -87,6 +100,20 @@ namespace StudiepuntenApp_WPF
                 lbxExtraVak.ItemsSource = _controller.getVakIngelogdeStudent();
                 lbxExtraVak.Items.Refresh();
                 lblPunten.Content = _controller.getTotalPunten(_controller.getVakIngelogdeStudent());
+        }
+
+        private void BtnStudiejaarAanpassen_Click(object sender, RoutedEventArgs e)
+        {
+            //if (cbxStudiejaar.SelectedItem != null)
+            //{
+            //    Studiejaar studiejaar = (Studiejaar)(cbxStudiejaar.SelectedItem);
+            //    if (_controller.changeStudiejaarFromStudent(studiejaar))
+            //    {
+            //        MessageBox.Show("Het studiejaar is aangepast.");
+            //    }
+            //    else
+            //        MessageBox.Show("Dit studiejaar was al toegevoegd.");
+            //}
         }
     }   
 }

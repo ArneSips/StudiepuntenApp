@@ -30,11 +30,12 @@ namespace StudiepuntenApp_WPF
 
         private void btnVoegStudiejaarToe_Click(object sender, RoutedEventArgs e)
         {
-             Studiejaar studiejaar = new Studiejaar(txtStudiejaar.Text, ((Studierichting)(lbxStudierichting.SelectedItem)).IDStudierichting);
+             Studiejaar studiejaar = new Studiejaar(txtStudiejaar.Text, ((Studierichting)(lbxStudierichting.SelectedItem)).IDStudierichting,-1);
              _controller.addStudiejaar(studiejaar);
              lbxStudierichting.ItemsSource = _controller.GetStudierichtings();
              lbxStudierichting.Items.Refresh();
              txtStudiejaar.Clear();
+             MessageBox.Show("Het studiejaar is succesvol toegevoegd.");
         }
 
         private void BtnTerug_Click(object sender, RoutedEventArgs e)

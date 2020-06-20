@@ -85,20 +85,22 @@ namespace StudiepuntenApp_business.Persistence
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-        public void AdjustStudentFromDB(Student student, int id)
+        public void AdjustStudentFromDB(Student student)
         {
             //de connectie met de databank maken
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "UPDATE studiepunten.student SET Naam = @naam, Wachtwoord = @ww, punten = @pt, where (id = @id)";
+            string opdracht = "UPDATE studiepunten.student SET Naam = @naam, Wachtwoord = @ww, punten = @pt, FKStudiejaar = @studiejaar where (IDGebruiker = @id)";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval
-            cmd.Parameters.AddWithValue("@ond", student.Naam);
-            cmd.Parameters.AddWithValue("@dat", student.Wachtwoord);
+            cmd.Parameters.AddWithValue("@naam", student.Naam);
+            cmd.Parameters.AddWithValue("@ww", student.Wachtwoord);
             cmd.Parameters.AddWithValue("@pt", student.Punten);
-            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id", student.IDGebruiker);
+            cmd.Parameters.AddWithValue("@studiejaar", student.FKStudiejaar);
+            
 
             conn.Open();
             cmd.ExecuteNonQuery();

@@ -40,10 +40,10 @@ namespace StudiepuntenApp_business.Persistence
             StudentMapper mapper = new StudentMapper(_connectionString);
             mapper.removeStudentFromDB(id);
         }
-        public void adjustStudent(Student student, int id)
+        public void adjustStudent(Student student)
         {
             StudentMapper mapper = new StudentMapper(_connectionString);
-            mapper.AdjustStudentFromDB(student, id);
+            mapper.AdjustStudentFromDB(student);
         }
 
         public List<StudentStudierichting> getStudentStudierichting()

@@ -32,5 +32,14 @@ namespace StudiepuntenApp_business.Business
             }
             return -1;
         }
+        public bool searchCombination(int idStudierichting, int idStudent)
+        {
+            foreach (StudentStudierichting item in StudentStudierichtingLijst)
+            {
+                if (item.FKStudent == idStudent && item.FKStudierichting == idStudierichting)
+                    return true;
+            }
+            return false;
+        }
     }
 }

@@ -60,15 +60,14 @@ namespace StudiepuntenApp_business.Persistence
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "INSERT INTO studiepunten.student_has_studierichting(idStudentVolgtRichting,fkStudent, fkStudierichting, startDatum, eindDatum) VALUES(@idstudentvolgtrichting, @fkstudent, @fkstudierichting, @startdatum, @einddatum)";
+            string opdracht = "INSERT INTO studiepunten.student_has_studierichting(fkStudent, fkStudierichting, startDatum) VALUES(@fkstudent, @fkstudierichting, @startdatum)";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval
-            cmd.Parameters.AddWithValue("idstudentvolgtstudierichting", studentstudierichting.IDStudentStudierichting);
+            //cmd.Parameters.AddWithValue("idstudentvolgtstudierichting", studentstudierichting.IDStudentStudierichting);
             cmd.Parameters.AddWithValue("fkstudent", studentstudierichting.FKStudent);
             cmd.Parameters.AddWithValue("fkstudierichting", studentstudierichting.FKStudierichting);
             cmd.Parameters.AddWithValue("startdatum", studentstudierichting.StartDatum);
-            cmd.Parameters.AddWithValue("einddatum", studentstudierichting.EindDatum);
 
             conn.Open();
             cmd.ExecuteNonQuery();
@@ -80,7 +79,7 @@ namespace StudiepuntenApp_business.Persistence
             MySqlConnection conn = new MySqlConnection(_connectionString);
 
             //Het SQL-commando definiëren
-            string opdracht = "UPDATE studiepunten.student_has_studierichting SET fkStudent = @fkstudent, fkStudierichting = @fkstudierichting, startDatum = @startdatum, eindDatum = @einddatum where (id = @id)";
+            string opdracht = "UPDATE studiepunten.student_has_studierichting SET fkStudent = @fkstudent, fkStudierichting = @fkstudierichting, startDatum = @startdatum, eindDatum = @einddatum where (idStudentVolgtRichting = @id)";
             MySqlCommand cmd = new MySqlCommand(opdracht, conn);
 
             //voeg de waarden toe, je haalt ze uit het object eval

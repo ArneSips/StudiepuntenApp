@@ -84,9 +84,9 @@ namespace StudiepuntenApp_business.Business
             _persistController.removeStudent(id);
             _studentRepository.StudentLijst = _persistController.getStudent();
         }
-        public void AdjustStudent(Student student, int id)
+        public void AdjustStudent(Student student)
         {
-            _persistController.adjustStudent(student, id);
+            _persistController.adjustStudent(student);
             _studentRepository.StudentLijst = _persistController.getStudent();
         }
 
@@ -139,6 +139,12 @@ namespace StudiepuntenApp_business.Business
         {
             return _studiejaarRepository.getIndexStudiejaarFromStudent(_ingelogdeStudent.FKStudiejaar);
         }
+        public int getIndexStudiejaarIngelogdeStudent(int indexstudierichting)
+        {
+
+            return _studiejaarRepository.getIndexStudiejaarFromStudent(_ingelogdeStudent.FKStudiejaar);
+        }
+
 
         public List<Studierichting> GetStudierichtings()
         {
@@ -159,11 +165,28 @@ namespace StudiepuntenApp_business.Business
             _persistController.adjustStudierichting(studierichting, id);
             _studierichtingRepository.StudierichtingLijst = _persistController.getStudierichting();
         }
-        public List<Studierichting> addStudierichtingToStudent(Studierichting studierichting, Studiejaar studiejaar)
+        public bool addStudierichtingStudiejaarToStudent(Studierichting studierichting, Studiejaar studiejaar)
         {
-            return null;
+            if (!_studentStudierichtingRepository.searchCombination(studierichting.IDStudierichting, _ingelogdeStudent.IDGebruiker))
+            {
+                StudentStudierichting studentstudierichting = new StudentStudierichting(_ingelogdeStudent.IDGebruiker, studierichting.IDStudierichting, DateTime.Today);
+                _persistController.addStudentStudierichting(studentstudierichting);
+                _studentStudierichtingRepository.StudentStudierichtingLijst = _persistController.getStudentStudierichting();
+                _ingelogdeStudent.FKStudiejaar = studiejaar.IDStudiejaar;
+                //pas student aan in databank en in repo                
+                _persistController.adjustStudent(_ingelogdeStudent);
+                _studentRepository.StudentLijst = _persistController.getStudent();
+                return true;
+            }
+            else
+                return false;
         }
-
+        public void changeStudiejaarFromStudent(Studiejaar studiejaar)
+        {
+            _ingelogdeStudent.FKStudiejaar = studiejaar.IDStudiejaar;      
+            _persistController.adjustStudent(_ingelogdeStudent);
+            _studentRepository.StudentLijst = _persistController.getStudent();
+        }
         public List<Vak> GetVaks()
         {
             return _vakRepository.VakLijst;
